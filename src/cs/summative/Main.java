@@ -8,13 +8,16 @@ package cs.summative;
  *
  * @author 344179247
  */
-public class CSSUMMATIVE {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MySketch.main("javaapplication12.MySketch");
+
+        
     }
     
 }
