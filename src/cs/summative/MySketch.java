@@ -14,8 +14,33 @@ public class MySketch extends PApplet{
         size(400,400);
      }
      public void setup(){
+        Cards [] deck = new Cards [5];
+        deck[0] = new Cards ("I don know", 5,0,3);
+        deck[1] = new Cards ("I don know", 5,0,3);
+        deck[2] = new Cards ("I don know", 5,0,3);
+        deck[3] = new Cards ("I don know", 5,0,3);
+        
+        Player fuhYou  = new Player ("fuh you", 10, deck, 10, 200 ,200);        
+        if (deck[0].getCost()< fuhYou.getEnergy()){
+            
+            
+            
+            fuhYou.setEnergy(fuhYou.getEnergy() - deck[0].getCost());
+            fuhYou.selectCards(deck[0]);
+            System.out.print (fuhYou.getEnergy());
+        } 
+        
+        
+         
+         
+         
+         
+         
          //runs once when you start the code
          //instanceiate the player guy
+     }
+     public void draw(){
+        background (255);
      }
 }
 
