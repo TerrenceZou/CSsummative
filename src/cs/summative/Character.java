@@ -14,12 +14,16 @@ public class Character {
     private String name;
     private Cards [] deck;
     private int energy; 
+    private int block;
     //private PApplet charSprite;
-    Character (String name, int hp, Cards[] deck, int energy,int x,int y){
+    Character (String name, int hp, Cards[] deck, int energy,int block,int x,int y){
         this.name = name;
         this.hp = hp;
         this.deck = deck;
         this.energy = energy;
+        this.block = block;
+
+        
         //this.charSprite = charSprite;
     }
     public String getName(){

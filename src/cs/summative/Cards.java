@@ -31,4 +31,8 @@ public class Cards {
     public int getCost(){
         return this.cost;
     }
+    @Override
+    public String toString(){
+        return this.name + " " + this.attack  + " " + this.block  + " " + this.cost;
+    }
 }

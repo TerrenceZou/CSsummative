@@ -9,11 +9,15 @@ import processing.core.PApplet;
  * @author 344179247
  */
 public class Player extends Character{
+    PApplet app;
     private Cards [] selectedCards = new Cards [5]; 
     private Cards[] drawPile = new Cards[5];
     private Cards[] discardPile = new Cards[5];
-    public Player (String name, int hp, Cards[] deck, int energy, int x ,int y){
-        super (name,hp,deck,energy, x, y);
+    private int x;
+    private int y;
+    public Player (PApplet p,String name, int hp, Cards[] deck, int energy,int block, int x ,int y){
+        super (name,hp,deck,energy,block, x, y);
+        this.app = p;
     }
     /*
     @param the selected card
@@ -22,15 +26,31 @@ public class Player extends Character{
     */
     
     public void selectCards(Cards selectedCard){
-        if (selectedCard.getCost() < this.getEnergy()){
-            for (int i =0 ; i < selectedCards.length; i++){
+        /*
+        Selecting cards puts the card into the selected cards array if the player has enough energy
+        handeles energy
+        returns nothing
+        @param the card the user has selected.
+        */
+        
+        
+        //if you have enough energy
+        if (selectedCard.getCost() <= this.getEnergy()){
+            //selects the card into the selected card array in the first empty slot
+            for (int i =0 ; i <= selectedCards.length; i++){
                 if (selectedCards[i] == null){
-                    selectedCard = selectedCards[i];
+                    selectedCards[i] = selectedCard;
+                    break;
                 }
             }
+            //removes the energy from the player
+            this.setEnergy(this.getEnergy() - selectedCard.getCost());
         }
-        if (selectedCard.getCost() > this.getEnergy()){
+        else{
             System.out.println("i dont have enough energy.");
+            for (Cards x: selectedCards){
+                System.out.println(x);
+            }
         }
         
     }//end function
@@ -42,6 +62,9 @@ public class Player extends Character{
         return selectedCards;
     }
     public void draw(){
+        app.fill(50,50,50);
+        app.rect(x,y,100,50);
+        
         
     }
 }
