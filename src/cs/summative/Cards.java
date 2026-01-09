@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package cs.summative;
+import processing.core.PApplet;
 
 /**
  *
@@ -13,11 +14,15 @@ public class Cards {
     int attack;
     int block;
     int cost;
-    Cards (String name,int attack,int block,int cost){
+    int x;
+    int y;
+    PApplet app;
+    Cards (PApplet p,String name,int attack,int block,int cost){
         this.name = name;
         this.attack = attack;
         this.block = block;
         this.cost = cost;
+        this.app = p;
     }
     public String getName(){
         return this.name;
@@ -34,5 +39,9 @@ public class Cards {
     @Override
     public String toString(){
         return this.name + " " + this.attack  + " " + this.block  + " " + this.cost;
+    }
+    public void draw(){
+        app.fill(50,50,50);
+        app.rect(200,300,50,100);
     }
 }

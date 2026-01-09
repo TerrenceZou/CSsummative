@@ -4,19 +4,20 @@
  */
 package cs.summative;
 import processing.core.PApplet;
+import java.util.ArrayList;
 /**
  *
  * @author 344179247
  */
 public class Player extends Character{
     PApplet app;
-    private Cards [] selectedCards = new Cards [1]; 
-    //need to make these openended arrays RIP HAVE TO USE ARRAY LIST OR HASHMAP
+    //creates an array list of selectedCards
+    ArrayList <Cards> selectedCards = new ArrayList<Cards>();
     private Cards[] drawPile = new Cards[5];
     private Cards[] discardPile = new Cards[5];
     private int x;
     private int y;
-    public Player (PApplet p,String name, int hp, Cards[] deck, int energy,int block, int x ,int y){
+    public Player (PApplet p,String name, int hp, ArrayList<Cards> deck, int energy,int block, int x ,int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
     }
@@ -33,17 +34,10 @@ public class Player extends Character{
         returns nothing
         @param the card the user has selected.
         */
-        
-        
         //if you have enough energy
         if (selectedCard.getCost() <= this.getEnergy()){
             //selects the card into the selected card array in the first empty slot
-            for (int i =0 ; i <= selectedCards.length; i++){
-                if (selectedCards[i] == null){
-                    selectedCards[i] = selectedCard;
-                    break;
-                }
-            }
+            selectedCards.add(selectedCard);
             //removes the energy from the player
             this.setEnergy(this.getEnergy() - selectedCard.getCost());
         }
@@ -56,7 +50,7 @@ public class Player extends Character{
     @return returns the selected cards
     returns the cards selected by the select cards function.
     */
-    public Cards[] getSelectedCards(){
+    public ArrayList<Cards> getSelectedCards(){
         return selectedCards;
     }
     public void draw(){

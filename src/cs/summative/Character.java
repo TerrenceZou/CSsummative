@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package cs.summative;
+import java.util.ArrayList;
 import processing.core.PApplet;
 
 /**
@@ -12,11 +13,11 @@ import processing.core.PApplet;
 public class Character {
     private int hp;
     private String name;
-    private Cards [] deck;
+    private ArrayList<Cards> deck;
     private int energy; 
     private int block;
     //private PApplet charSprite;
-    Character (String name, int hp, Cards[] deck, int energy,int block,int x,int y){
+    Character (String name, int hp, ArrayList<Cards> deck, int energy,int block,int x,int y){
         this.name = name;
         this.hp = hp;
         this.deck = deck;
@@ -32,7 +33,7 @@ public class Character {
     public int getHp(){
         return this.hp;
     }
-    public Cards [] getDeck(){
+    public ArrayList<Cards> getDeck(){
         return this.deck;
     }
     public int getEnergy(){

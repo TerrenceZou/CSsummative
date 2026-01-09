@@ -4,6 +4,8 @@
  */
 package cs.summative;
 import processing.core.PApplet;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -11,7 +13,7 @@ import processing.core.PApplet;
  */
 public class MySketch extends PApplet{
     private Player fuhYou;
-    
+    private Enemy What;
     
      public void settings(){
         size(400,400);
@@ -20,21 +22,35 @@ public class MySketch extends PApplet{
      
      public void setup(){
         background(100,100,100);
-         //runs once when you start the code
-         //instanceiate the player
-        Cards [] deck = new Cards [1];
+        //runs once when you start the code
+        //instanceiate the player
         int block = 0;
-        fuhYou  = new Player (this,"fuh you", 10, deck, 10,block, 200 ,200);
-        deck[0] = new Cards("defend",0,10,9);
-        fuhYou.selectCards(deck[0]);
         
-        //i should make a emeny array that consists of many player objects. Attacks will proabaly just be random card that they can use.
-        endTurn();
+        
+        //init stuff
+        ArrayList <Cards> deck = new ArrayList<Cards>();
+        fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 200 ,200);
+        deck.add(new Cards(this, "defend",0,10,9));
+        fuhYou.selectCards(deck.get(0));
+        
+        //i should make a ememy array that consists of many player objects. Attacks will proabaly just be random card that they can use.
+        ArrayList <Cards> enemyDeck = new ArrayList<Cards>();
+        
+        What = new Enemy (this, "What", 10, enemyDeck, 10, 0 , 200, 200);
+        endTurn(What);
      }
+     
+     
      public void draw(){
         background (255);
         fuhYou.draw();
+        What.draw();
+        for (Cards i: deck){
+            
+        }
      }
+     
+     
      public int getPlayerAttack(){
         //gets the total attack from the cards the player makes
         int attack = 0;
@@ -42,7 +58,10 @@ public class MySketch extends PApplet{
            attack += i.getAttack();
         }
         return attack;
-    }
+     }
+     
+     
+     
     public int getPlayerBlock(){
         //gets the total block from the cards the player plays
         int block = 0;
@@ -50,22 +69,16 @@ public class MySketch extends PApplet{
             block += i.getBlock();
         }
         return block;
-        
-        
     }
-    public void endTurn(){
-        //runs the players things and then the enemies attacks. Finally ends the turn of the user
+    public void endTurn(Character enemy){
+        //runs the players attack and then the enemies attacks. Finally ends the turn of the user
+        int outgoingDmg = getPlayerAttack();
         int incommingDmg = 11;
-        int damage = getPlayerBlock() - incommingDmg;
+        incommingDmg = getPlayerBlock() - incommingDmg;
         //makes the user take damage if the users block is not sufficant
-        if (damage < 0){
-            fuhYou.setHp(damage + fuhYou.getHp());
+        if (incommingDmg < 0){
+            fuhYou.setHp(incommingDmg + fuhYou.getHp());
         }
-        
-        
-        
-        
-        
     }
 }
 
