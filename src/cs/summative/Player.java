@@ -10,7 +10,8 @@ import processing.core.PApplet;
  */
 public class Player extends Character{
     PApplet app;
-    private Cards [] selectedCards = new Cards [5]; 
+    private Cards [] selectedCards = new Cards [1]; 
+    //need to make these openended arrays RIP HAVE TO USE ARRAY LIST OR HASHMAP
     private Cards[] drawPile = new Cards[5];
     private Cards[] discardPile = new Cards[5];
     private int x;
@@ -48,9 +49,6 @@ public class Player extends Character{
         }
         else{
             System.out.println("i dont have enough energy.");
-            for (Cards x: selectedCards){
-                System.out.println(x);
-            }
         }
         
     }//end function
