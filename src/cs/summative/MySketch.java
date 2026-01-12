@@ -25,12 +25,14 @@ public class MySketch extends PApplet{
         //runs once when you start the code
         //instanceiate the player
         int block = 0;
-        
+        int encounterTimer;
         
         //init stuff
         ArrayList <Cards> deck = new ArrayList<Cards>();
         fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 200 ,200);
-        deck.add(new Cards(this, "defend",0,10,9));
+        deck.add(new Cards(this, "hey",0,10,9, 200, 200));
+        deck.add(new Cards(this, "guys",0,10,9, 200, 200));
+        deck.add(new Cards(this, "defend",0,10,9, 200, 200));
         fuhYou.selectCards(deck.get(0));
         
         //i should make a ememy array that consists of many player objects. Attacks will proabaly just be random card that they can use.
@@ -45,8 +47,11 @@ public class MySketch extends PApplet{
         background (255);
         fuhYou.draw();
         What.draw();
-        for (Cards i: deck){
-            
+        //gets the players deck and sets the card's x position to 50 more than its previous one
+        for (int i =0; i < fuhYou.getDeck().size(); i++){
+            fuhYou.getDeck().get(i).setX(200 + i*60);
+            fuhYou.getDeck().get(i).draw();
+            System.out.println(fuhYou.getDeck().get(i).getX());
         }
      }
      
