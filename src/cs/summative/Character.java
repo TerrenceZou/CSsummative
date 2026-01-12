@@ -16,15 +16,17 @@ public class Character {
     private ArrayList<Cards> deck;
     private int energy; 
     private int block;
+    private int x;
+    private int y;
     //private PApplet charSprite;
-    Character (String name, int hp, ArrayList<Cards> deck, int energy,int block,int x,int y){
+    Character (String name, int hp, ArrayList<Cards> deck, int energy,int block, int x, int y){
         this.name = name;
         this.hp = hp;
         this.deck = deck;
         this.energy = energy;
         this.block = block;
-
-        
+        this.x = x;
+        this.y = y;
         //this.charSprite = charSprite;
     }
     public String getName(){

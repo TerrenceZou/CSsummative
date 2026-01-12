@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class MySketch extends PApplet{
     private Player fuhYou;
     private Enemy What;
-    
+    int encounterTimer;
+    Cards selectedCard; 
      public void settings(){
         size(400,400);
      }
@@ -25,17 +26,16 @@ public class MySketch extends PApplet{
         //runs once when you start the code
         //instanceiate the player
         int block = 0;
-        int encounterTimer;
         
         //init stuff
         ArrayList <Cards> deck = new ArrayList<Cards>();
-        fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 200 ,200);
-        deck.add(new Cards(this, "hey",0,10,9, 200, 200));
-        deck.add(new Cards(this, "guys",0,10,9, 200, 200));
-        deck.add(new Cards(this, "defend",0,10,9, 200, 200));
+        fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 0 ,150);
+        deck.add(new Cards(this, "hey",0,10,9, 200, 300));
+        deck.add(new Cards(this, "guys",0,10,9, 200, 300));
+        deck.add(new Cards(this, "defend",0,10,9, 200, 300));
         fuhYou.selectCards(deck.get(0));
         
-        //i should make a ememy array that consists of many player objects. Attacks will proabaly just be random card that they can use.
+        //i should make a enemy array that consists of many enemy objects. 
         ArrayList <Cards> enemyDeck = new ArrayList<Cards>();
         
         What = new Enemy (this, "What", 10, enemyDeck, 10, 0 , 200, 200);
@@ -46,16 +46,16 @@ public class MySketch extends PApplet{
      public void draw(){
         background (255);
         fuhYou.draw();
-        What.draw();
         //gets the players deck and sets the card's x position to 50 more than its previous one
         for (int i =0; i < fuhYou.getDeck().size(); i++){
-            fuhYou.getDeck().get(i).setX(200 + i*60);
+            fuhYou.getDeck().get(i).setX(100 + i*60);
             fuhYou.getDeck().get(i).draw();
-            System.out.println(fuhYou.getDeck().get(i).getX());
+//            System.out.println(fuhYou.getDeck().get(i).getX());
         }
+        checkCollisions();
      }
      
-     
+     //should be in player class
      public int getPlayerAttack(){
         //gets the total attack from the cards the player makes
         int attack = 0;
@@ -66,7 +66,7 @@ public class MySketch extends PApplet{
      }
      
      
-     
+    //should be in player class
     public int getPlayerBlock(){
         //gets the total block from the cards the player plays
         int block = 0;
@@ -84,6 +84,30 @@ public class MySketch extends PApplet{
         if (incommingDmg < 0){
             fuhYou.setHp(incommingDmg + fuhYou.getHp());
         }
+        //resets the encounter to the start.
+        encounterTimer = 0;
     }
+    public boolean checkCollisions(){
+        for (Cards i : fuhYou.getDeck())
+            if (i.isClicked(mouseX, mouseY)){
+                selectedCard=  i;
+                return true;
+            }
+            return false;
+        
+    }
+    public void mousePressed(){
+        if (checkCollisions()){
+            System.out.println(true);
+            fuhYou.selectCards(selectedCard);
+            for(Cards i: fuhYou.getSelectedCards()){
+                System.out.println(i);
+            }
+        }
+        else{
+            System.out.println(false);
+        }
+    }
+    
 }
 

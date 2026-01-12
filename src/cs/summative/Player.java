@@ -20,6 +20,8 @@ public class Player extends Character{
     public Player (PApplet p,String name, int hp, ArrayList<Cards> deck, int energy,int block, int x ,int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
+        this.x = x;
+        this.y = y;
     }
     /*
     @param the selected card
@@ -55,8 +57,9 @@ public class Player extends Character{
     }
     public void draw(){
         app.fill(50,50,50);
-        app.rect(x,y,100,50);
+        app.rect(x,y,100,100);
         
         
     }
+    
 }
