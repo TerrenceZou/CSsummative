@@ -21,7 +21,6 @@ public class Enemy extends Character{
     private PApplet app;
     private int x;
     private int y;
-    
     public Enemy (PApplet p, String name, int hp, ArrayList<Cards> deck ,int energy,int block, int x, int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
@@ -30,9 +29,22 @@ public class Enemy extends Character{
     public Cards getEnemyCard(){
         //Makes the enemy use a random card from their deck.
         Random rand = new Random();
-        int randInt = rand.nextInt(this.deck.size());
+        int randInt = rand.nextInt(1);
         return this.deck.get(randInt);
     }
+    public int getAttack(){
+        //if the enemy is alive get their attack
+        if (this.hp > 0){
+            return this.getEnemyCard().getAttack();
+        }
+        return 0;
+    }
+    public int getBlock(){
+        return this.getEnemyCard().getBlock();
+    }
+    
+    
+    
     public void draw(){
         app.fill(255,0,0);
         app.rect(200,200,100,50);

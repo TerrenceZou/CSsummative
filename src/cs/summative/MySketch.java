@@ -15,9 +15,13 @@ public class MySketch extends PApplet{
     private Player fuhYou;
     private Enemy What;
     int encounterTimer;
-    Cards selectedCard; 
+    Cards selectedCard;
+    private TurnEnd endTurn;
+    
+    
+    
      public void settings(){
-        size(400,400);
+        size(600,600);
      }
      
      
@@ -27,43 +31,43 @@ public class MySketch extends PApplet{
         //instanceiate the player
         int block = 0;
         
-        //init stuff
+        //init array for player and enemy
         ArrayList <Cards> deck = new ArrayList<Cards>();
-        fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 0 ,150);
-        deck.add(new Cards(this, "hey",0,10,9, 200, 300));
-        deck.add(new Cards(this, "guys",0,10,9, 200, 300));
-        deck.add(new Cards(this, "defend",0,10,9, 200, 300));
-        fuhYou.selectCards(deck.get(0));
-        
-        //i should make a enemy array that consists of many enemy objects. 
         ArrayList <Cards> enemyDeck = new ArrayList<Cards>();
         
+        
+        //init player cards
+        deck.add(new Cards(this, "hey",0,10,9, 300, 500));
+        deck.add(new Cards(this, "guys",0,10,9, 300, 500));
+        deck.add(new Cards(this, "defend",0,10,9, 300, 500));
+        deck.add(new Cards(this, "superPowers",0,10,9, 300, 500));
+        
+        //init enemy cards
+        enemyDeck.add(new Cards(this, "EnemyAttack1",20000,0,9, 300, 500));
+        enemyDeck.add(new Cards(this, "EnemyAttack2",20000,0,9, 300, 500));
+        
+        //inint player and enemy
+        fuhYou  = new Player (this, "fuh you", 10, deck, 10,block, 0 ,150);
         What = new Enemy (this, "What", 10, enemyDeck, 10, 0 , 200, 200);
-        endTurn(What);
+        
+        // init the end turn button
+        endTurn = new TurnEnd(this,450,450);
      }
      
      
      public void draw(){
         background (255);
         fuhYou.draw();
+        endTurn.draw();
         //gets the players deck and sets the card's x position to 50 more than its previous one
         for (int i =0; i < fuhYou.getDeck().size(); i++){
             fuhYou.getDeck().get(i).setX(100 + i*60);
             fuhYou.getDeck().get(i).draw();
-//            System.out.println(fuhYou.getDeck().get(i).getX());
         }
         checkCollisions();
      }
      
      //should be in player class
-     public int getPlayerAttack(){
-        //gets the total attack from the cards the player makes
-        int attack = 0;
-        for (Cards i: fuhYou.getSelectedCards()){
-           attack += i.getAttack();
-        }
-        return attack;
-     }
      
      
     //should be in player class
@@ -75,19 +79,36 @@ public class MySketch extends PApplet{
         }
         return block;
     }
-    public void endTurn(Character enemy){
-        //runs the players attack and then the enemies attacks. Finally ends the turn of the user
-        int outgoingDmg = getPlayerAttack();
-        int incommingDmg = 11;
-        incommingDmg = getPlayerBlock() - incommingDmg;
-        //makes the user take damage if the users block is not sufficant
-        if (incommingDmg < 0){
-            fuhYou.setHp(incommingDmg + fuhYou.getHp());
+    public void endTurn(Enemy enemy){
+        /*
+        runs the players attack and then the enemies attacks. Finally ends the turn of the user
+        @param the enemy
+        */
+        //player turn
+        int playerAttack = fuhYou.getAttack();
+        playerAttack = enemy.getBlock() - fuhYou.getAttack();
+        if (playerAttack < 0){
+            enemy.setHp(enemy.getHp() +playerAttack);
         }
-        //resets the encounter to the start.
+        
+        
+        
+        //enemy turn
+        int EnemyAttack = enemy.getAttack();
+        //takes the enemy's attack and reduces the player block by that number. If the enemy's attack is greater than the players block make them take damage.
+        EnemyAttack = getPlayerBlock() - EnemyAttack;
+        //makes the user take damage if the enemy attack is now a negative value
+        if (EnemyAttack < 0){
+            fuhYou.setHp(EnemyAttack + fuhYou.getHp());
+        }
+        //resets the encounter to the start and sets the players energy to the maximum
+        fuhYou.setEnergy(10);
         encounterTimer = 0;
     }
+    
+    
     public boolean checkCollisions(){
+        //checks if the mouse collides with a card
         for (Cards i : fuhYou.getDeck())
             if (i.isClicked(mouseX, mouseY)){
                 selectedCard=  i;
@@ -96,17 +117,24 @@ public class MySketch extends PApplet{
             return false;
         
     }
+    public boolean checkEndTurnCollisions(){
+        //checks if the mouse clicks the turn end button
+        if (endTurn.isClicked(mouseX,mouseY)){
+            return true;
+        }
+        return false;
+    }
     public void mousePressed(){
+        //if the card is clicked select the card
         if (checkCollisions()){
-            System.out.println(true);
             fuhYou.selectCards(selectedCard);
-            for(Cards i: fuhYou.getSelectedCards()){
-                System.out.println(i);
-            }
         }
-        else{
-            System.out.println(false);
+        if (checkEndTurnCollisions()){
+            //if the player clicks the turn end button it ends the turn.
+            endTurn(What);
+            System.out.println(true);
         }
+        
     }
     
 }

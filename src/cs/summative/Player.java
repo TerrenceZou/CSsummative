@@ -13,8 +13,6 @@ public class Player extends Character{
     PApplet app;
     //creates an array list of selectedCards
     ArrayList <Cards> selectedCards = new ArrayList<Cards>();
-    private Cards[] drawPile = new Cards[5];
-    private Cards[] discardPile = new Cards[5];
     private int x;
     private int y;
     public Player (PApplet p,String name, int hp, ArrayList<Cards> deck, int energy,int block, int x ,int y){
@@ -34,17 +32,23 @@ public class Player extends Character{
         Selecting cards puts the card into the selected cards array if the player has enough energy
         handeles energy
         returns nothing
+        if the player clicks the card a second time it unselects the card and refunds energy
         @param the card the user has selected.
         */
         //if you have enough energy
-        if (selectedCard.getCost() <= this.getEnergy()){
-            //selects the card into the selected card array in the first empty slot
-            selectedCards.add(selectedCard);
-            //removes the energy from the player
-            this.setEnergy(this.getEnergy() - selectedCard.getCost());
-        }
-        else{
-            System.out.println("i dont have enough energy.");
+        if (!selectedCards.contains(selectedCard)){
+            if (selectedCard.getCost() <= this.getEnergy()){
+                //selects the card into the selected card array in the first empty slot
+                selectedCards.add(selectedCard);
+                //removes the energy from the player
+                this.setEnergy(this.getEnergy() - selectedCard.getCost());
+            }
+            else{
+                System.out.println("i dont have enough energy.");
+            }
+        }else{
+            this.setEnergy(this.getEnergy() + selectedCard.getCost());
+            selectedCards.remove(selectedCard);
         }
         
     }//end function
@@ -55,6 +59,15 @@ public class Player extends Character{
     public ArrayList<Cards> getSelectedCards(){
         return selectedCards;
     }
+    public int getAttack(){
+            //gets the total attack score from the players cards.
+        int attack = 0;
+        for (Cards i: this.getSelectedCards()){
+           attack += i.getAttack();
+        }
+        return attack;
+     }
+    
     public void draw(){
         app.fill(50,50,50);
         app.rect(x,y,100,100);
