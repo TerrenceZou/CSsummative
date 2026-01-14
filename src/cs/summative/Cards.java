@@ -17,6 +17,8 @@ public class Cards {
     int x;
     int y;
     PApplet app;
+    
+    
     Cards (PApplet p,String name,int attack,int block,int cost, int x, int y){
         this.name = name;
         this.attack = attack;
@@ -49,6 +51,9 @@ public class Cards {
     public int getX(){
         return this.x;
     }
+    public int getY(){
+        return this.y;
+    }
     
     public boolean isClicked(int mouseX, int mouseY){
         boolean mouseInRectX = x <mouseX &&  mouseX < + x+ 50;
@@ -61,11 +66,24 @@ public class Cards {
     }
 
     @Override
+    /*
+    to string method
+    */
     public String toString(){
         return this.name + " " + this.attack  + " " + this.block  + " " + this.cost;
     }
+    
+    
     public void draw(){
+        //draws a rectange
         app.fill(255,0,0);
         app.rect(x,y,50,100);
+        app.fill(0,0,0);
+        app.text(this.name, x+25 ,y-10);
+        //implement when the card is selected create a yellow box around it.
+        //display card stats better.
+    
     }
+    
+    
 }

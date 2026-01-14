@@ -68,9 +68,23 @@ public class Player extends Character{
         return attack;
      }
     
+    public int getBlock(){
+        //gets the total block from the cards the player plays
+        int block = 0;
+        for (Cards i: this.getSelectedCards()){
+            block += i.getBlock();
+        }
+        return block;
+    }
     public void draw(){
         app.fill(50,50,50);
         app.rect(x,y,100,100);
+        app.fill(0,150,255);
+        app.ellipse(100,350,50,50);
+        app.fill(0,0,0);
+        app.text(this.getEnergy() +"/10", 100,350);
+        app.fill(0,0,0);
+        app.text(this.getHp(), x+20, y-50);
         
         
     }
