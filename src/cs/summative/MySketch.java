@@ -68,11 +68,9 @@ public class MySketch extends PApplet{
         //gets the players deck and sets the card's x position to 50 more than its previous one
         for (int i =0; i < fuhYou.getDeck().size(); i++){
             //draws all of the users cards inside of their deck minus a bit
-            fuhYou.getDeck().get(i).setX(100 + i*60);
+            fuhYou.getDeck().get(i).setX(width/(fuhYou.getDeck().size()) + (i*60));
             fuhYou.getDeck().get(i).draw();
-            fill (0,0,0);
         }
-        fill(0,0,0);
         checkCollisions();
      }
      
@@ -99,6 +97,11 @@ public class MySketch extends PApplet{
         }
         //resets the encounter to the start and sets the players energy to the maximum
         fuhYou.setEnergy(10);
+        //clears the display for the encounter
+        fuhYou.getDeck().get(1).clearDisplay();
+        //clears the selected cards 
+        fuhYou.clearSelectedCards();
+        
         encounterTimer = 0;
     }
     
@@ -107,7 +110,7 @@ public class MySketch extends PApplet{
         //checks if the mouse collides with a card
         for (Cards i : fuhYou.getDeck())
             if (i.isClicked(mouseX, mouseY)){
-                selectedCard=  i;
+                selectedCard = i;
                 return true;
             }
             return false;
@@ -128,7 +131,6 @@ public class MySketch extends PApplet{
         if (checkEndTurnCollisions()){
             //if the player clicks the turn end button it ends the turn.
             endTurn(What);
-            System.out.println(true);
         }
         
     }

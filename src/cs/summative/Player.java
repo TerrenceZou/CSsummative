@@ -35,20 +35,27 @@ public class Player extends Character{
         if the player clicks the card a second time it unselects the card and refunds energy
         @param the card the user has selected.
         */
-        //if you have enough energy
+        //if this card has not already been selected
         if (!selectedCards.contains(selectedCard)){
+            //and if you have enough energy
             if (selectedCard.getCost() <= this.getEnergy()){
-                //selects the card into the selected card array in the first empty slot
+                //it adds the card to the selected card array list
                 selectedCards.add(selectedCard);
                 //removes the energy from the player
                 this.setEnergy(this.getEnergy() - selectedCard.getCost());
+                //displays that this card is selected
+                selectedCard.selectCardsDisplay();
             }
             else{
                 System.out.println("i dont have enough energy.");
             }
         }else{
+            //when unselected refunds the player of their energy
             this.setEnergy(this.getEnergy() + selectedCard.getCost());
+            //removes it from the list of selected cards
             selectedCards.remove(selectedCard);
+            //undisplays the card
+            selectedCard.selectCardsDisplay();
         }
         
     }//end function
@@ -75,6 +82,10 @@ public class Player extends Character{
             block += i.getBlock();
         }
         return block;
+    }
+    public void clearSelectedCards(){
+        //clears selected cards
+        selectedCards.clear();
     }
     public void draw(){
         app.fill(50,50,50);

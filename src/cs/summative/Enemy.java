@@ -15,7 +15,7 @@ import processing.core.PApplet;
 public class Enemy extends Character{
     private int hp;
     private String name;
-    private ArrayList<Cards> deck;
+    private ArrayList<Cards> deck = new ArrayList<Cards>();
     private int energy; 
     private int block;
     private PApplet app;
@@ -24,6 +24,8 @@ public class Enemy extends Character{
     public Enemy (PApplet p, String name, int hp, ArrayList<Cards> deck ,int energy,int block, int x, int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
+        //no idea why adding this.deck fixed it but it did
+        this.deck = deck;
     }
 
     public Cards getEnemyCard(){

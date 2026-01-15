@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package cs.summative;
+import java.util.ArrayList;
 import processing.core.PApplet;
 
 /**
@@ -16,6 +17,7 @@ public class Cards {
     int cost;
     int x;
     int y;
+    private ArrayList <Cards>displayCards = new ArrayList<Cards>();
     PApplet app;
     
     
@@ -72,15 +74,33 @@ public class Cards {
     public String toString(){
         return this.name + " " + this.attack  + " " + this.block  + " " + this.cost;
     }
+    public void selectCardsDisplay(){
+        if (displayCards.contains(this) == false){
+            displayCards.add(this);
+            System.out.println(true);
+        }else{
+            displayCards.remove(this);
+            System.out.println(false);
+
+        }
+        System.out.println(displayCards);
+    }
+    public void clearDisplay(){
+        displayCards.clear();
+    }
+    
     
     
     public void draw(){
         //draws a rectange
+        if (displayCards.contains(this)){
+            app.fill(255,255,0);
+            app.rect(x-5,y-5,60,100);
+        }
         app.fill(255,0,0);
         app.rect(x,y,50,100);
         app.fill(0,0,0);
         app.text(this.name, x+25 ,y-10);
-        //implement when the card is selected create a yellow box around it.
         //display card stats better.
     
     }
