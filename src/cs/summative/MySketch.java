@@ -5,6 +5,7 @@
 package cs.summative;
 import processing.core.PApplet;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -18,7 +19,8 @@ public class MySketch extends PApplet{
     public Cards selectedCard;
     private TurnEnd endTurn;
     PApplet app;
-    
+    ArrayList <Cards> deck = new ArrayList<Cards>();
+
     
     
     public void settings(){
@@ -32,7 +34,6 @@ public class MySketch extends PApplet{
         int block = 0;
         
         //init array for player and enemy
-        ArrayList <Cards> deck = new ArrayList<Cards>();
         ArrayList <Cards> enemyDeck = new ArrayList<Cards>();
         
         //init text size and center align it.
@@ -64,7 +65,6 @@ public class MySketch extends PApplet{
         background (255);
         fuhYou.draw();
         endTurn.draw();
-        fill(0,150,255);
         //gets the players deck and sets the card's x position to 50 more than its previous one
         for (int i =0; i < fuhYou.getDeck().size(); i++){
             //draws all of the users cards inside of their deck minus a bit
@@ -98,10 +98,13 @@ public class MySketch extends PApplet{
         //resets the encounter to the start and sets the players energy to the maximum
         fuhYou.setEnergy(10);
         //clears the display for the encounter
-        fuhYou.getDeck().get(1).clearDisplay();
+        for (Cards i: fuhYou.getDeck()){
+            i.clearDisplay();
+            }
         //clears the selected cards 
         fuhYou.clearSelectedCards();
-        
+        //randomises the players cards
+        Collections.shuffle(deck);
         encounterTimer = 0;
     }
     
