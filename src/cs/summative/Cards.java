@@ -19,6 +19,7 @@ public class Cards {
     int y;
     private ArrayList <Cards>displayCards = new ArrayList<Cards>();
     PApplet app;
+    private Cards displayedCard;
     
     
     Cards (PApplet p,String name,int attack,int block,int cost, int x, int y){
@@ -77,18 +78,17 @@ public class Cards {
     public void selectCardsDisplay(){
         if (displayCards.contains(this) == false){
             displayCards.add(this);
-            System.out.println(true);
         }else{
             displayCards.remove(this);
-            System.out.println(false);
 
         }
-        System.out.println(displayCards);
     }
     public void clearDisplay(){
         displayCards.clear();
     }
-    
+    public void displayStats(Cards card){
+        displayedCard = card;
+    }
     
     
     public void draw(){
@@ -102,6 +102,7 @@ public class Cards {
         app.fill(0,0,0);
         app.text(this.name, x+25 ,y-10);
         //display card stats better.
+        
     
     }
     

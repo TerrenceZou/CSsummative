@@ -15,6 +15,7 @@ public class Player extends Character{
     ArrayList <Cards> selectedCards = new ArrayList<Cards>();
     private int x;
     private int y;
+    private final int MAX_HP = 10;
     public Player (PApplet p,String name, int hp, ArrayList<Cards> deck, int energy,int block, int x ,int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
@@ -47,6 +48,7 @@ public class Player extends Character{
                 selectedCard.selectCardsDisplay();
             }
             else{
+                //display a text telling that the energy is not sufficent
                 System.out.println("i dont have enough energy.");
             }
         }else{
@@ -88,14 +90,19 @@ public class Player extends Character{
         selectedCards.clear();
     }
     public void draw(){
+        //player png
         app.fill(50,50,50);
         app.rect(x,y,100,100);
+        //energy bar png
         app.fill(0,150,255);
-        app.ellipse(100,350,50,50);
+        app.ellipse(x+100,y+100,50,50);
         app.fill(0,0,0);
-        app.text(this.getEnergy() +"/10", 100,350);
+        app.text(this.getEnergy() +"/10", x+100,y+100);
+        //health bar
+        app.fill(255,0,0);
+        app.rect(x,y-60,10*this.getHp(),20);
         app.fill(0,0,0);
-        app.text(this.getHp(), x+20, y-50);
+        app.text(this.getHp() + "/" + MAX_HP , x+50, y-50);
         
         
     }

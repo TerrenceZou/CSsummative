@@ -21,24 +21,32 @@ public class Enemy extends Character{
     private PApplet app;
     private int x;
     private int y;
+    private int MAX_HP = 10;
     public Enemy (PApplet p, String name, int hp, ArrayList<Cards> deck ,int energy,int block, int x, int y){
         super (name,hp,deck,energy,block, x, y);
         this.app = p;
         //no idea why adding this.deck fixed it but it did
         this.deck = deck;
+        this.x = x;
+        this.y = y;
     }
 
     public Cards getEnemyCard(){
         //Makes the enemy use a random card from their deck.
         Random rand = new Random();
-        int randInt = rand.nextInt(1);
+        int randInt = rand.nextInt(this.deck.size()-1);
         return this.deck.get(randInt);
     }
     public int getAttack(){
         //if the enemy is alive get their attack
-        if (this.hp > 0){
+                    System.out.println(hp);
+
+        if (this.getHp() >= 1){
+            System.out.println(this.getEnemyCard().getAttack());
             return this.getEnemyCard().getAttack();
         }
+                System.out.println("fdnfdjhndfasjkfdsn");
+
         return 0;
     }
     public int getBlock(){
@@ -48,8 +56,14 @@ public class Enemy extends Character{
     
     
     public void draw(){
+        //enemy draw
         app.fill(255,0,0);
-        app.rect(200,200,100,50);
+        app.rect(x,y,100,50);
+        //health bar 
+        app.fill(255,0,0);
+        app.rect(x,y-60,100,20);
+        app.fill(0,0,0);
+        app.text(this.getHp() + "/" + MAX_HP , x+50, y-50);
     }
         
     
