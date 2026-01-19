@@ -13,12 +13,11 @@ import processing.core.PApplet;
 public class Character {
     private int hp;
     private String name;
-    private ArrayList<Cards> deck;
+    ArrayList<Cards> deck;
     private int energy; 
     private int block;
     private int x;
     private int y;
-    //private PApplet charSprite;
     Character (String name, int hp, ArrayList<Cards> deck, int energy,int block, int x, int y){
         this.name = name;
         this.hp = hp;
@@ -27,23 +26,46 @@ public class Character {
         this.block = block;
         this.x = x;
         this.y = y;
-        //this.charSprite = charSprite;
     }
+    /*
+    retruns char name
+    @return charater name
+    */
     public String getName(){
         return this.name;
     }
+    /*
+    returns char hp
+    @return returns char hp
+    */
     public int getHp(){
         return this.hp;
     }
+    /*
+    returns the deck of the cards
+    @return the deck
+    */
     public ArrayList<Cards> getDeck(){
         return this.deck;
     }
+    /*
+    returns the amount of energy the user has
+    @return the amount of energy the user has
+    */
     public int getEnergy(){
         return this.energy;
     }
+    /*
+    sets the users hp
+    @param the hp of the user
+    */
     public void setHp(int hp){
         this.hp = hp;
     }
+    /*
+    sets the energy of the character
+    @param the new energy
+    */
     public void setEnergy(int energy){
         this.energy = energy;
     }
